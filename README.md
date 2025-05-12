@@ -50,34 +50,43 @@ BGS（2012）认为在资产的横向比较中，投资者的注意力往往会�
 将前景理论与凸显理论进行对比可以发现：在前景理论中，投资者进行投资决策的心理权重偏差在于给予了和尾部收益相关的小概率事件更高的权重；而在凸显理论中，极端收益被加权的原因并不是因为它们的发生概率小，而是因为它们在截面上相对市场平均收益来说具有凸显性，凸显理论模型认为资产的溢价不是由投资者的偏好驱动的，而是由资产收益相对市场平均收益脱颖而出的程度驱动的，当中既包含了时序信息，也包含了截面信息。我们复现了2022年招商证券研报《行为金融新视角，“凸显性收益”因子STR》中的STR因子构造方法。
 
 ### STR因子构造
+
 **Step1:**  
 计算股票 $i$ 在第 $d$ 天的收益与市场平均收益的距离：
 
-$$\sigma_{i,d} = \frac{|r_{i,d} - \bar{r}_d|}{|r_{i,d}| + |\bar{r}_d| + \theta} \tag{1}$$
+$$
+\sigma_{i,d} = \frac{|r_{i,d} - \bar{r}_d|}{|r_{i,d}| + |\bar{r}_d| + \theta} \tag{1}
+$$
 
-其中 $\theta=0.1$ 用于防止分母为零。
+其中 $\theta = 0.1$ 用于防止分母为零。
 
 ---
 
 **Step2:**  
 对过去一个月每日的 $\delta(r_{i,d})$ 排序，得到 $k_{i,d}$，并计算凸显权重：
 
-$$\omega_{i,d} = \frac{\delta^{k_{i,d}}}{S} \tag{2a}$$
+$$
+\omega_{i,d} = \frac{\delta^{k_{i,d}}}{S} \tag{2a}
+$$
 
 归一化因子 $S$ 为：
 
-$$S = \sum_{d^{\prime}} \delta^{k_{i,d}} \pi_{d^{\prime}} \tag{2b}$$
+$$
+S = \sum_{d^{\prime}} \delta^{k_{i,d}} \pi_{d^{\prime}} \tag{2b}
+$$
 
 参数说明：
-- $\delta=0.7$（控制权重扭曲程度）
-- $\pi=1/N$（等权重概率）
+- $\delta = 0.7$（控制权重扭曲程度）
+- $\pi = 1/N$（等权重概率）
 
 ---
 
 **Step3:**  
 当月 STR 值为收益与权重的协方差：
 
-$$ \text{STR} = \text{cov}(\omega_{i,d}, r_{i,d}) \tag{3} $$
+$$
+\text{STR} = \text{Cov}(\omega_{i,d}, r_{i,d}) \tag{3}
+$$
 
 ## 回测结果
 
@@ -93,7 +102,7 @@ $$ \text{STR} = \text{cov}(\omega_{i,d}, r_{i,d}) \tag{3} $$
 !["images/反转_收益.png"](images/反转_收益.png)
 !["images/反转_IC.png"](images/反转_IC.png)
 
-#### 因子3：STRSTR因子回测结果：
+#### 因子3：STR因子回测结果：
 !["images/STR_Return.png"](images/STR_Return.png)
 !["images/STR_IC.png"](images/STR_IC.png)
 
